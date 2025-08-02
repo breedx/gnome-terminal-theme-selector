@@ -19,12 +19,6 @@ This tool provides an interactive theme selector using `fzf` with:
 ### Theme Selection Interface
 ![Theme Selector](screenshots/theme-selector.png)
 
-### Live Preview in Action
-![Live Preview](screenshots/live-preview.png)
-
-### Before and After Theme Switch
-![Theme Comparison](screenshots/before-after.png)
-
 ## Installation
 
 1. **Download the scripts**:
