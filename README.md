@@ -19,6 +19,9 @@ This tool provides an interactive theme selector using `fzf` with:
 ### Theme Selection Interface
 ![Theme Selector](screenshots/theme-selector.png)
 
+### After Selection - New Tab Opens
+![Post Selection](screenshots/post-selection.png)
+
 ## Installation
 
 1. **Download the scripts**:

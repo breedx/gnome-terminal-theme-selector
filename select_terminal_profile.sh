@@ -128,15 +128,13 @@ if [[ -n "$SELECTED" ]]; then
     UUID_SELECTED=$(echo "$SELECTED" | awk -F':::' '{print $2}' | xargs)
     NAME_SELECTED=$(echo "$SELECTED" | awk -F':::' '{print $1}' | sed 's/\x1b\[[0-9;]*m//g' | xargs)
     
-    # Change current terminal's profile immediately
-    if [[ -n "$GNOME_TERMINAL_SCREEN" ]]; then
-        # Get current terminal window ID and change its profile
-        dconf write /org/gnome/terminal/legacy/profiles:/:$UUID_SELECTED/use-theme-colors false 2>/dev/null || true
-        echo -e "\033]50;SetProfile=$NAME_SELECTED\007"
-        echo "🎨 Current terminal theme changed to: $NAME_SELECTED"
-    else
-        echo "⚠️  Not running in GNOME Terminal, cannot change current theme"
-    fi
+    # Preview the theme in a new tab
+    echo "🎨 Selected theme: $NAME_SELECTED"
+    echo "🔄 Opening new tab to preview the theme..."
+    
+    # Open new tab with the selected profile
+    gnome-terminal --tab --profile="$NAME_SELECTED" 2>/dev/null || \
+    echo "   (Could not open new tab with profile)"
     
     # Ask if user wants to set as default
     echo
@@ -145,9 +143,9 @@ if [[ -n "$SELECTED" ]]; then
     
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         dconf write ${PROFILES_PATH}default "'$UUID_SELECTED'"
-        echo "✅ '$NAME_SELECTED' set as default profile"
+        echo "✅ '$NAME_SELECTED' set as default profile for new terminals"
     else
-        echo "👍 Current terminal theme changed, default unchanged"
+        echo "👍 Theme previewed in new tab, default unchanged"
     fi
 else
     echo "❌ No theme selected."
